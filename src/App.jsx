@@ -1,14 +1,20 @@
 import { useState } from 'react'
-import  Header from './components/Header'
-
+import {createBrowserRouter , RouterProvider} from 'react-router-dom'
+import Homepage from './pages/Homepage'
+import Space from './pages/Space'
 function App() {
   const [count, setCount] = useState(0)
-
-
+  const Router = (createBrowserRouter([
+    {path:'/space', element:<Space/> },
+    {path:'/', element:<Homepage/> }
+  ]))
+  
   return (
     <>
-hello 
-<Header/>
+    <RouterProvider router={Router} />
+
+
+
     </>
   )
 }
