@@ -1,23 +1,19 @@
-import React from 'react'
-
-import '../index.css'
-import react from 'react';
-// "use client";
-// import reactimg from '/assets/simon-hajducki-yGMw4KpX4CE-unsplash.jpg'
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 const Slideshow = () => {
+  const navigateTo = useNavigate();
+
+  const handleroute = () => {
+    navigateTo('/space')
+  }
 
   return (  
     <>
-    
-      <div style={{ backgroundColor: "#ffffff"}} className='min-w-[32rem]  border-black border-2 m-4 rounded-3xl  overflow-hidden p-8'>
-
-        <a href='http://localhost:5173/space'>
-        <button className='h-[200px] w-[900px] border bg-yellow-300 m-24 rounded-3xl text-5xl'>Enter Your Space</button></a>
-
+      <div style={{ backgroundColor: "#ffffff"}} className='min-w-[32rem] border-black border-2 m-4 rounded-3xl overflow-hidden p-8'>
+        <button onClick={handleroute} className='h-[200px] w-[900px] border bg-yellow-300 m-24 rounded-3xl text-5xl'>Enter Your Space</button>
       </div>  
-      
     </>
   )
 }
 
-export default Slideshow
+export default Slideshow;
