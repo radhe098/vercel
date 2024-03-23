@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { format } from 'date-fns';
-// import fs from 'fs'
+import { saveAs } from 'file-saver';
 
 const Space = () => {
   const [entry, setEntry] = useState('');
@@ -15,11 +15,13 @@ const Space = () => {
     // Create file name with current date
     const fileName = `${currentDate}.txt`;
     // Create a Blob with the entry content
-    const blob = new Blob([entry], { type: 'text/plain' });
+    // const blob = new Blob([entry], { type: 'text/plain' });
 
     // fs.writeFile(`/vercel/src/data/${fileName}`, entry, (err) => {
-    //     if (err) throw err;
+    //     if (err) console.log(err) ;
     //     console.log('Entry saved successfully.');})
+    const file = new Blob(['Hello, world!'], { type: 'text/plain;charset=utf-8' });
+    saveAs(file, 'hello_world.txt');
 
     // Create a URL for the Blob
     // const url = URL.createObjectURL(blob);
