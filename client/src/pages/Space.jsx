@@ -1,58 +1,72 @@
-import React, { useState } from 'react';
-import { format } from 'date-fns';
-import { saveAs } from 'file-saver';
+  import React, { useState } from 'react';
+  import { format } from 'date-fns';
+  // import { saveAs } from 'file-saver';
 
-const Space = () => {
-  const [entry, setEntry] = useState('');
+  const Space = () => {
+    const [title, setTitle] = useState('');
+    const [entry, setEntry] = useState('');
 
-  const handleInputChange = (event) => {
-    setEntry(event.target.value);
-  };
-
-  const handleSaveEntry = () => {
-    // Get current date and format it
+    const handletitlechange = (event) => {
+      setTitle(event.target.value);
+    };
+    const handleInputChange = (event) => {
+      setEntry(event.target.value);
+    };
     const currentDate = format(new Date(), 'yyyyMMddHHmmss');
-    // Create file name with current date
-    const fileName = `${currentDate}.txt`;
-    // Create a Blob with the entry content
-    // const blob = new Blob([entry], { type: 'text/plain' });
 
-    // fs.writeFile(`/vercel/src/data/${fileName}`, entry, (err) => {
-    //     if (err) console.log(err) ;
-    //     console.log('Entry saved successfully.');})
-    const file = new Blob(['Hello, world!'], { type: 'text/plain;charset=utf-8' });
-    saveAs(file, 'hello_world.txt');
+    const handleSaveEntry = async() => {
+      const formdata ={
+        date :currentDate,
+        title:title,
+        entry:entry
+        } 
+    try 
+    {
+      const response = await fetch('http://localhost:5000',{
+        method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'} ,
+            body: JSON.stringify(formdata)});
 
-    // Create a URL for the Blob
-    // const url = URL.createObjectURL(blob);
-    // Create a link element
-    // const link = document.createElement('a');
-    // Set link attributes
-    // link.href = url;
-    // link.download = fileName;
-    // Simulate click on the link to trigger download
-    // link.click();
-  };
+      if (response.ok) {
+        // Optionally, reset the form after successful submission
 
-  return (
-    <div className="min-h-screen flex flex-col justify-center items-center bg-gray-800">
-      <div className="max-w-4xl w-full bg-yellow-200 p-8 rounded-lg shadow-md">
-        <h1 className="text-2xl font-semibold mb-4">Diary Writing Page</h1>
-        <textarea
-          className="w-full h-[500px] bg-yellow-50 px-4 py-2 mb-4 border border-gray-300 rounded-md resize-none focus:outline-none focus:border-blue-500 text-xl"
-          placeholder="Write your diary entry here..."
-          value={entry}
-          onChange={handleInputChange}
-        ></textarea>
-        <button
-          className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-md transition duration-300"
-          onClick={handleSaveEntry}
-        >
-          Save Entry
-        </button>
+        setTitle('');
+        setEntry('');
+        alert('Diary entry saved successfully');
+      } else {
+        const errorData = await response.json();
+        alert(`Error: ${errorData.message}`);
+      }
+    } catch (error) {
+      console.log('Error saving diary entry:', error);  
+      alert('Failed to save diary entry. Please try again later.');
+    }
+  }; 
+
+    return (
+      <div className="min-h-screen flex flex-col justify-center items-center bg-gray-800">
+        <div className="max-w-4xl w-full bg-yellow-200 p-8 rounded-lg shadow-md">
+          {/* <div className='flex justify-between'> */}
+          {/* <h1 className="text-2xl font-semibold mt-2 mr-4">Title</h1> */}
+          <input
+            className="w-full bg-yellow-50 px-4 py-2 mb-4 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+            placeholder="Title" value={title} onChange={handletitlechange} />
+            {/* </div> */}
+          <textarea
+            className="w-full h-[500px] bg-yellow-50 px-4 py-2 mb-4 border border-gray-300 rounded-md resize-none focus:outline-none focus:border-blue-500 text-xl"
+            placeholder="Write your diary entry here..."
+            value={entry}
+            onChange={handleInputChange}
+          ></textarea>
+          <button
+            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-md transition duration-300"
+            onClick={handleSaveEntry}
+          >
+            Save Entry
+          </button>
+        </div>
       </div>
-    </div>
-  );
-};
-
-export default Space;
+    );
+  };
+  export default Space;
