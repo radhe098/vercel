@@ -7,7 +7,7 @@ const diaryApp = require('./routes/diary');
 const cors = require('cors');
 app.use(cors(
     {
-        origin:"https://vercel-frontend-five.vercel.app",
+        origin:"https://vercel-backend-lake.vercel.app/",
         methods: ['GET','POST'],
         credentials:true
     }
