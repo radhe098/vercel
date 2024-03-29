@@ -5,7 +5,13 @@ const port =5000;
 const app = express();
 const diaryApp = require('./routes/diary');
 const cors = require('cors');
-app.use(cors());
+app.use(cors(
+    {
+        origin:"https://vercel-frontend-five.vercel.app",
+        methods: ['GET','POST'],
+        credentials:true
+    }
+));
 app.use(express.json())
 
 // const mongoose = require('mongoose');
