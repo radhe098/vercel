@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const port =5000;
 const app = express();
-const diaryApp = require('./routes/diary');
+// const diaryApp = require('./routes/diary');
 const cors = require('cors');
 app.use(cors(
     {
@@ -46,7 +46,10 @@ app.post('/', async (req, res) => {
   res.status(500).json({ message: 'Failed to save diary entry. Please try again later.' });
 }
 });
-app.use('/', diaryApp);
+// app.use('/', diaryApp);
+app.get('/', (req, res) =>{
+    res.send('Hello world');
+})
 
 
 app.listen(port, () => {
