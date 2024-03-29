@@ -22,7 +22,7 @@
         } 
     try 
     {
-      const response = await fetch('https://vercel-backend-lake.vercel.app/',{
+      const response = await fetch('https://vercel-backend-lake.vercel.app',{
         method: 'POST',
           headers: {
             'Content-Type': 'application/json'} ,

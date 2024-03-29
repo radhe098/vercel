@@ -3,11 +3,11 @@ const fs = require('fs');
 const path = require('path');
 const port =5000;
 const app = express();
-const diaryApp = require('./routes/diary');
+// const diaryApp = require('./routes/diary');
 const cors = require('cors');
 app.use(cors(
     {
-        origin:"https://vercel-backend-lake.vercel.app/",
+        origin:"https://vercel-frontend-five.vercel.app",
         methods: ['GET','POST'],
         credentials:true
     }
@@ -46,7 +46,10 @@ app.post('/', async (req, res) => {
   res.status(500).json({ message: 'Failed to save diary entry. Please try again later.' });
 }
 });
-app.use('/', diaryApp);
+// app.use('/', diaryApp);
+app.get('/', (req, res) =>{
+    res.send('Hello world');
+})
 
 
 app.listen(port, () => {
