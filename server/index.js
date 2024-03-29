@@ -25,7 +25,7 @@ app.post('/', async (req, res) => {
     try {
         const { date, title, content } = req.body; 
         const currentDate = new Date();
-        const filename = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()}-${currentDate.getHours()}-.txt`;
+        const filename = `${req.body.title}-${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()}-${currentDate.getHours()}-.txt`;
         const filePath = path.join(__dirname, 'diary', filename);
 
         if (!fs.existsSync(path.join(__dirname, 'diary'))) {
