@@ -23,7 +23,7 @@
       }
     
       try {
-        const response = await axios.post('https://vercel-backend-lake.vercel.app/', formdata, {
+        const response = await axios.post('http://localhost:5000', formdata, {
           headers: {
             'Content-Type': 'application/json'
           },withCredentials: false  
