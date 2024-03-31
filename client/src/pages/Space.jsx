@@ -6,6 +6,7 @@ import { format } from 'date-fns';
 const Space = () => {
   const [title, setTitle] = useState('');
   const [entry, setEntry] = useState('');
+  // const [enKey, setEnkey] = useState();
 
   const handletitlechange = (event) => {
     setTitle(event.target.value);
@@ -19,28 +20,28 @@ const Space = () => {
 
   const handleSaveEntry = async () => {
     const enKey = CryptoJS.lib.WordArray.random(16);
+    // setEnkey(tempenKey)
 
     const encryptedEntry = CryptoJS.AES.encrypt(entry, enKey.toString()).toString();
 
     const formdata = {
       date: currentDate,
       title: title,
-      entry: entry,
+      entry: encryptedEntry,
       enKey: enKey.toString(), 
     };
 
     try {
-      const response = await axios.post('http://localhost:5000/', formdata, {
+      const response = await axios.post('http://localhost:5000', formdata, {
         headers: {
-          'Content-Type': 'application/json',
-        },
+          'Content-Type': 'application/json',},
         withCredentials: false,
       });
 
       if (response.status === 200) {
         setTitle('');
         setEntry('');
-        alert('Diary entry saved successfully');
+        alert(`Diary entry saved successfully`);
       } else {
         alert(`Error: ${response.data.message}`);
       }
