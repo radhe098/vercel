@@ -8,7 +8,7 @@ const cors = require('cors');
 app.use(cors(
     {
         origin:"https://vercel-frontend-five.vercel.app",
-        methods: ['GET','POST'],
+        methods: ['GET','POST','PUT','DELETE'],
         credentials:true
     }
 ));
