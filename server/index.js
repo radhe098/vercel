@@ -6,11 +6,11 @@ const app = express();
 // const diaryApp = require('./routes/diary');
 const cors = require('cors');
 app.use(cors(
-    // {
-    //     origin:"https://vercel-frontend-five.vercel.app/space",
-    //     methods: ['GET','POST','PUT','DELETE'],
-    //     credentials:true
-    // }
+    {
+        origin:"https://vercel-frontend-five.vercel.app/space",
+        methods: ['GET','POST','PUT','DELETE'],
+        credentials:true
+    }
 ));
 app.use(express.json())
 
