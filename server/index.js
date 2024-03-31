@@ -7,7 +7,7 @@ const app = express();
 const cors = require('cors');
 app.use(cors(
     {
-        origin:"https://vercel-frontend-five.vercel.app",
+        origin:"https://vercel-frontend-five.vercel.app/space",
         methods: ['GET','POST','PUT','DELETE'],
         credentials:true
     }
@@ -49,9 +49,6 @@ app.post('/', async (req, res) => {
 // app.use('/', diaryApp);
 app.get('/', (req, res) =>{
     res.send('Hello world');
-})
-app.get('/about', (req, res) =>{
-    res.send('Hello world to the about page');
 })
 
 
