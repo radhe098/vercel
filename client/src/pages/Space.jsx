@@ -1,4 +1,5 @@
   import React, { useState } from 'react';
+  import axios from 'axios';
   import { format } from 'date-fns';
   // import { saveAs } from 'file-saver';
 
@@ -15,34 +16,31 @@
     const currentDate = format(new Date(), 'yyyyMMddHHmmss');
 
     const handleSaveEntry = async() => {
-      const formdata ={
-        date :currentDate,
-        title:title,
-        entry:entry
-        } 
-    try 
-    {
-      const response = await fetch('https://vercel-backend-lake.vercel.app',{
-        method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'} ,
-            body: JSON.stringify(formdata)});
-
-      if (response.ok) {
-        // Optionally, reset the form after successful submission
-
-        setTitle('');
-        setEntry('');
-        alert('Diary entry saved successfully');
-      } else {
-        const errorData = await response.json();
-        alert(`Error: ${errorData.message}`);
+      const formdata = {
+        date: currentDate,
+        title: title,
+        entry: entry
       }
-    } catch (error) {
-      console.log('Error saving diary entry:', error);  
-      alert('Failed to save diary entry. Please try again later.');
-    }
-  }; 
+    
+      try {
+        const response = await axios.post('https://vercel-backend-lake.vercel.app/', formdata, {
+          headers: {
+            'Content-Type': 'application/json'
+          },withCredentials: false  
+        });
+    
+        if (response.status === 200) {
+          setTitle('');
+          setEntry('');
+          alert('Diary entry saved successfully');
+        } else {
+          alert(`Error: ${response.data.message}`);
+        }
+      } catch (error) {
+        console.log('Error saving diary entry:', error);
+        alert('Failed to save diary entry. Please try again later.');
+      }
+    };
 
     return (
       <div className="min-h-screen flex flex-col justify-center items-center bg-gray-800">
