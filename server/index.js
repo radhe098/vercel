@@ -50,6 +50,9 @@ app.post('/', async (req, res) => {
 app.get('/', (req, res) =>{
     res.send('Hello world');
 })
+app.get('/about', (req, res) =>{
+    res.send('Hello world to the about page');
+})
 
 
 app.listen(port, () => {
