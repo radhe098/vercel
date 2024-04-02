@@ -32,7 +32,7 @@ const Space = () => {
     };
 
     try {
-      const response = await axios.post('http://localhost:5000', formdata, {
+      const response = await axios.post('https://cryptic-diaries.vercel.app/', formdata, {
         headers: {
           'Content-Type': 'application/json',},
         withCredentials: false,
